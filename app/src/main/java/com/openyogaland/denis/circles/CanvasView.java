@@ -2,6 +2,8 @@ package com.openyogaland.denis.circles;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.Display;
@@ -9,18 +11,21 @@ import android.view.View;
 import android.view.WindowManager;
 
 // This class is a View on which we can draw something
-public class CanvasView extends View
+public class CanvasView extends View implements ICanvasView
 {
   // fields
-  private static int width;        // ширина экрана
-  private static int height;       // высота экрана
-  private GameManager gameManager; // логика игры
+  private static int  width;        // ширина экрана
+  private static int  height;       // высота экрана
+  private GameManager gameManager;  // логика игры
+  private Paint       paint;        // "кисточка" для рисования
+  private Canvas      canvas;       // "холст" для рисования
   
   // constructor
   public CanvasView(Context context, AttributeSet attrs)
   {
     super(context, attrs);
     initWidthAndHeight(context);
+    initPaint(); // инициализируем "кисточку"
     gameManager = new GameManager(this, width, height);
   }
   
@@ -37,11 +42,26 @@ public class CanvasView extends View
     }
   }
   
+  // инициализируем "кисточку"
+  private void initPaint()
+  {
+    paint = new Paint();
+    paint.setAntiAlias(true);   // сглаживание
+    paint.setStyle(Style.FILL); // заливка
+  }
+  
   // method onDraw()
   @Override
   protected void onDraw(Canvas canvas)
   {
     super.onDraw(canvas);
-    gameManager.onDraw(canvas);
+    this.canvas = canvas;
+    gameManager.onDraw();
+  }
+  
+  // Метод интерфейса ICanvasView
+  public void drawCircle(MainCircle circle)
+  {
+    canvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), paint);
   }
 }
