@@ -18,6 +18,18 @@ class GameManager
     initMainCircle();
   }
   
+  // getter
+  static int getWidth()
+  {
+    return width;
+  }
+  
+  // getter
+  static int getHeight()
+  {
+    return height;
+  }
+  
   
   // инициализируем главный круг, которым мы управляем
   private void initMainCircle()
@@ -29,5 +41,11 @@ class GameManager
   void onDraw()
   {
     canvasView.drawCircle(mainCircle);
+  }
+  
+  // Если было касание к экрану и перемещение
+  void onTouchEvent(int x, int y)
+  {
+    mainCircle.moveAt(x, y);
   }
 }

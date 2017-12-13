@@ -7,6 +7,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -60,8 +61,24 @@ public class CanvasView extends View implements ICanvasView
   }
   
   // Метод интерфейса ICanvasView
-  public void drawCircle(MainCircle circle)
+  public void drawCircle(SimpleCircle circle)
   {
     canvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), paint);
+  }
+  
+  // Метод для обработки прикосновения к экрану
+  @Override
+  public boolean onTouchEvent(MotionEvent motionEvent)
+  {
+    // получаем координаты касания
+    int x = (int) motionEvent.getX();
+    int y = (int) motionEvent.getY();
+    
+    if(motionEvent.getAction() == MotionEvent.ACTION_MOVE)
+    {
+      gameManager.onTouchEvent(x, y);
+      invalidate(); // нужно, чтобы у объекта View обновилось положение
+    }
+    return true;
   }
 }

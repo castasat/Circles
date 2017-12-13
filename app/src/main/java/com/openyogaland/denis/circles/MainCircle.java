@@ -1,40 +1,25 @@
 package com.openyogaland.denis.circles;
 
 // This class represents the main circle, which we can play with
-class MainCircle
+class MainCircle extends SimpleCircle
 {
   // constants
   private static final int INIT_RADIUS = 50;
-  
-  // fields of the circle
-  private int x;
-  private int y;
-  private int radius;
+  private static final int MAIN_SPEED  = 50;
 
   // constructor
   MainCircle(int x, int y)
   {
-    this.x = x;
-    this.y = y;
-    this.radius = INIT_RADIUS;
+    super(x, y, INIT_RADIUS);
   }
   
-  // getter getX()
-  int getX()
-  
+  // Moving MainCircle at target coordinates
+  void moveAt(int moveX, int moveY)
   {
-    return x;
-  }
-  
-  // getter getY()
-  int getY()
-  {
-    return y;
-  }
-  
-  // getter getRadius()
-  int getRadius()
-  {
-    return radius;
+    // чем дальше касаемся от кружка, тем быстрее он перемещается
+    int dx = (moveX - x) * MAIN_SPEED / GameManager.getWidth();
+    int dy = (moveY - y) * MAIN_SPEED / GameManager.getHeight();
+    x += dx;
+    y += dy;
   }
 }
