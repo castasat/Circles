@@ -4,4 +4,6 @@ package com.openyogaland.denis.circles;
 public interface ICanvasView
 {
   void drawCircle(SimpleCircle circle);
+  
+  void redraw();  
 }

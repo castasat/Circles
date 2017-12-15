@@ -75,15 +75,37 @@ class GameManager
   // Если было касание к экрану и перемещение
   void onTouchEvent(int x, int y)
   {
-    mainCircle.moveAt(x, y);
-    moveCircles();
+    mainCircle.moveAt(x, y); // двигаем главный круг вслед за прикосновением
+    checkCollision(); // проверяем столкновение главного круга с другими
+    moveCircles(); // перемещаем круги
   }
-  
+ 
+  // перемещаем круги
   private void moveCircles()
   {
     for (EnemyCircle circle : circles)
     {
       circle.moveOneStep();
     }
+  }
+  
+  // проверяем столкновение главного круга с другими
+  private void checkCollision()
+  {
+    for (EnemyCircle circle : circles)
+    {
+      if (mainCircle.isIntersecting(circle))
+      {
+        gameOver();
+      }
+    }
+  }
+  
+  // окончание игру - переинициализируем игру заново
+  private void gameOver()
+  {
+    mainCircle.initRadius();
+    initEnemyCircles();
+    canvasView.redraw();
   }
 }

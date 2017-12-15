@@ -68,6 +68,13 @@ public class CanvasView extends View implements ICanvasView
     canvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), paint);
   }
   
+  // метод интерфейса ICanvasView
+  @Override
+  public void redraw()
+  {
+    invalidate();
+  }
+  
   // Метод для обработки прикосновения к экрану
   @Override
   public boolean onTouchEvent(MotionEvent motionEvent)

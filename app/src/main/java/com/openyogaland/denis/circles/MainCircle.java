@@ -26,4 +26,10 @@ class MainCircle extends SimpleCircle
     x += dx;
     y += dy;
   }
+  
+  // переинициализация радиуса главного круга при завершении игры
+  void initRadius()
+  {
+    radius = INIT_RADIUS;
+  }
 }

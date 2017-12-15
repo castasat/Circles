@@ -47,9 +47,24 @@ class EnemyCircle extends SimpleCircle
     }
   }
   
+  // перемещение круга на один шаг
   void moveOneStep()
   {
     x += dx;
     y += dy;
+    checkBounds();
+  }
+  
+  // проверка границ экрана (отражение от них центра круга)
+  private void checkBounds()
+  {
+    if (x > GameManager.getWidth() || x < 0)
+    {
+      dx = - dx;
+    }
+    if (y > GameManager.getHeight() || y < 0)
+    {
+      dy = - dy;
+    }
   }
 }
