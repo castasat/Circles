@@ -48,11 +48,13 @@ class SimpleCircle
     this.color = color;
   }
   
+  // This methods returns a bigger circle area around this circle
   SimpleCircle getCircleArea()
   {
     return new SimpleCircle(x, y, radius *3);
   }
   
+  // Checks if this circle isIntersecting with the circle in parameter
   boolean isIntersecting(SimpleCircle circle)
   {
     return radius + circle.radius >= Math.sqrt(Math.pow(x - circle.x, 2) + Math.pow(y - circle.y, 2));

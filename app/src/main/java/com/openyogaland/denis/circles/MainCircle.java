@@ -7,7 +7,7 @@ class MainCircle extends SimpleCircle
 {
   // constants
   private static final int INIT_RADIUS       = 50;
-  private static final int MAIN_SPEED        = 50;
+  private static final int MAIN_SPEED        = 100;
   private static final int MAIN_CIRCLE_COLOR = Color.BLUE;
   
   // constructor
