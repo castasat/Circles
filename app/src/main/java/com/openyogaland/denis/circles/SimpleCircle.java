@@ -4,9 +4,10 @@ package com.openyogaland.denis.circles;
 class SimpleCircle
 {
   // fields of the circle
-  protected int x;
-  protected int y;
-  protected int radius;
+  int x;
+  int y;
+  int radius;
+  private int color;
   
   // constructor
   SimpleCircle(int x, int y, int radius)
@@ -33,5 +34,27 @@ class SimpleCircle
   int getRadius()
   {
     return radius;
+  }
+  
+  // getter getColor()
+  public int getColor()
+  {
+    return color;
+  }
+  
+  // setter setColor()
+  public void setColor(int color)
+  {
+    this.color = color;
+  }
+  
+  SimpleCircle getCircleArea()
+  {
+    return new SimpleCircle(x, y, radius *3);
+  }
+  
+  boolean isIntersecting(SimpleCircle circle)
+  {
+    return radius + circle.radius >= Math.sqrt(Math.pow(x - circle.x, 2) + Math.pow(y - circle.y, 2));
   }
 }

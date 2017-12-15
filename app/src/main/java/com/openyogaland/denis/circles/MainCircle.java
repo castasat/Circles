@@ -1,16 +1,20 @@
 package com.openyogaland.denis.circles;
 
+import android.graphics.Color;
+
 // This class represents the main circle, which we can play with
 class MainCircle extends SimpleCircle
 {
   // constants
-  private static final int INIT_RADIUS = 50;
-  private static final int MAIN_SPEED  = 50;
-
+  private static final int INIT_RADIUS       = 50;
+  private static final int MAIN_SPEED        = 50;
+  private static final int MAIN_CIRCLE_COLOR = Color.BLUE;
+  
   // constructor
   MainCircle(int x, int y)
   {
     super(x, y, INIT_RADIUS);
+    setColor(MAIN_CIRCLE_COLOR); // цвет MainCircle
   }
   
   // Moving MainCircle at target coordinates

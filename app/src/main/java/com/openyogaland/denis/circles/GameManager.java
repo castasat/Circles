@@ -1,7 +1,6 @@
 package com.openyogaland.denis.circles;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 // This class represents the game logic
 class GameManager
@@ -47,10 +46,17 @@ class GameManager
   // инициализируем коллекцию вражеских кругов
   private void initEnemyCircles()
   {
-    circles = new ArrayList<EnemyCircle>();
+    SimpleCircle mainCircleArea = mainCircle.getCircleArea();
+    circles = new ArrayList<EnemyCircle>(); // ArrayList<EnemyCircle>
     for(int i = 0; i < MAX_CIRCLES_NUMBER; i++)
     {
-      circles.add(EnemyCircle.getRandomCircle());
+      EnemyCircle newCircle;
+      do
+      {
+        newCircle = EnemyCircle.getRandomCircle();
+      }
+      while(newCircle.isIntersecting(mainCircleArea));
+      circles.add(newCircle);
     }
   }
   
@@ -60,10 +66,12 @@ class GameManager
     canvasView.drawCircle(mainCircle);
     for (EnemyCircle circle : circles)
     {
+      // устанавливаем зелёный цвет, если радиус < MainCircle, иначе - красный
+      circle.setEnemyOrFoodColorDependsOn(mainCircle.getRadius());
       canvasView.drawCircle(circle);
     }
   }
-  
+ 
   // Если было касание к экрану и перемещение
   void onTouchEvent(int x, int y)
   {
