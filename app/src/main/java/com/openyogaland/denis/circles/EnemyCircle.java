@@ -34,10 +34,10 @@ class EnemyCircle extends SimpleCircle
     return (new EnemyCircle(x, y, radius, dx, dy));
   }
   
-  // Если радиус данного круга меньше радиуса MainCircle
-  void setEnemyOrFoodColorDependsOn(int mainCircleRadius)
+  // Если радиус данного круга меньше радиуса переданного круга
+  void setEnemyOrFoodColorDependsOn(SimpleCircle circle)
   {
-    if(radius < mainCircleRadius)
+    if(isSmallerThan(circle))
     {
       setColor(FOOD_CIRCLE_COLOR);  // Food color
     }
@@ -47,7 +47,13 @@ class EnemyCircle extends SimpleCircle
     }
   }
   
-  // перемещение круга на один шаг
+  // возвращает true, если наш круг меньше, чем заданный круг
+  boolean isSmallerThan(SimpleCircle circle)
+  {
+    return radius < circle.radius;
+  }
+  
+  // перемещение кругов на один шаг
   void moveOneStep()
   {
     x += dx;
@@ -55,14 +61,14 @@ class EnemyCircle extends SimpleCircle
     checkBounds();
   }
   
-  // проверка границ экрана (отражение от них центра круга)
+  // проверка границ с учетом радиуса круга
   private void checkBounds()
   {
-    if (x > GameManager.getWidth() || x < 0)
+    if (x + radius > GameManager.getWidth() || x - radius < 0)
     {
       dx = - dx;
     }
-    if (y > GameManager.getHeight() || y < 0)
+    if (y + radius > GameManager.getHeight() || y - radius < 0)
     {
       dy = - dy;
     }

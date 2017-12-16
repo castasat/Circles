@@ -32,4 +32,10 @@ class MainCircle extends SimpleCircle
   {
     radius = INIT_RADIUS;
   }
+  
+  // increases radius
+  void growRadius(SimpleCircle circle)
+  {
+    radius = (int) Math.sqrt(Math.pow(circle.radius, 2) + Math.pow(radius, 2));
+  }
 }

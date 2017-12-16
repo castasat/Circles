@@ -66,8 +66,7 @@ class GameManager
     canvasView.drawCircle(mainCircle);
     for (EnemyCircle circle : circles)
     {
-      // устанавливаем зелёный цвет, если радиус < MainCircle, иначе - красный
-      circle.setEnemyOrFoodColorDependsOn(mainCircle.getRadius());
+      circle.setEnemyOrFoodColorDependsOn(mainCircle); // устанавливает цвет круга
       canvasView.drawCircle(circle);
     }
   }
@@ -89,15 +88,32 @@ class GameManager
     }
   }
   
-  // проверяем столкновение главного круга с другими
+  // проверяем столкновение главного круга с другими кругами
   private void checkCollision()
   {
-    for (EnemyCircle circle : circles)
+    EnemyCircle circleToDelete = null;       // круг, который нужно удалить
+    for (EnemyCircle circle : circles)        // для каждого вражеского круга
     {
-      if (mainCircle.isIntersecting(circle))
+      if (mainCircle.isIntersecting(circle))  // если круг пересекается с нашим
       {
-        gameOver();
+        if (circle.isSmallerThan(mainCircle)) // если круг меньше нашего
+        {
+          mainCircle.growRadius(circle);      // увеличить радиус нашего круга
+          circleToDelete = circle;            // сохраняем круг для удалениz
+        }
+        else                                  // иначе, если круг равен или больше
+        {
+          gameOver();                         // завершаем игру
+        }
       }
+    }
+    if (circleToDelete != null)               // если есть круг, который нужно удалить
+    {
+      circles.remove(circleToDelete);         // удаляем его из коллекции
+    }
+    if(circles.isEmpty())                     // если коллекция вражеских кругов пуста
+    {
+      gameOver();
     }
   }
   
