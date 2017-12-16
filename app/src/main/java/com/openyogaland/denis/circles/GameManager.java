@@ -103,7 +103,7 @@ class GameManager
         }
         else                                  // иначе, если круг равен или больше
         {
-          gameOver();                         // завершаем игру
+          gameOver("YOU LOSE!");       // завершаем игру
         }
       }
     }
@@ -113,13 +113,14 @@ class GameManager
     }
     if(circles.isEmpty())                     // если коллекция вражеских кругов пуста
     {
-      gameOver();
+      gameOver("YOU WIN!");            // завершаем игру
     }
   }
   
   // окончание игру - переинициализируем игру заново
-  private void gameOver()
+  private void gameOver(String text)
   {
+    canvasView.showMessage(text);
     mainCircle.initRadius();
     initEnemyCircles();
     canvasView.redraw();

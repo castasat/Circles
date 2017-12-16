@@ -7,9 +7,11 @@ import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 // This class is a View on which we can draw something
 public class CanvasView extends View implements ICanvasView
@@ -20,6 +22,7 @@ public class CanvasView extends View implements ICanvasView
   private GameManager gameManager;  // логика игры
   private Paint       paint;        // "кисточка" для рисования
   private Canvas      canvas;       // "холст" для рисования
+  private Toast       toast;        // всплывающее сообщение
   
   // constructor
   public CanvasView(Context context, AttributeSet attrs)
@@ -75,6 +78,17 @@ public class CanvasView extends View implements ICanvasView
     invalidate();
   }
   
+  @Override public void showMessage(String text)
+  {
+    if(toast != null) // если всплывающее сообщение на экране
+    {
+      toast.cancel();
+    }
+    toast = Toast.makeText(getContext(), text, Toast.LENGTH_SHORT);
+    toast.setGravity(Gravity.CENTER, 0 , 0);
+    toast.show();
+  }
+  
   // Метод для обработки прикосновения к экрану
   @Override
   public boolean onTouchEvent(MotionEvent motionEvent)
@@ -90,4 +104,10 @@ public class CanvasView extends View implements ICanvasView
     }
     return true;
   }
+  
+  // todo сделать, чтобы радиус кругов зависел от начального размера экрана
+  //public static int recalculateRadius(int radius)
+  //{
+  //  return radius * 768 / width < height ? width : height;
+  //}
 }
