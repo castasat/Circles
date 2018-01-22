@@ -78,7 +78,8 @@ public class CanvasView extends View implements ICanvasView
     invalidate();
   }
   
-  @Override public void showMessage(String text)
+  @Override
+  public void showMessage(String text)
   {
     if(toast != null) // если всплывающее сообщение на экране
     {
